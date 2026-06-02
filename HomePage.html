@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Shop E commase</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #fafafa;
+        }
+
+        /* Dark Red & Red Theme */
+        :root {
+            --dark-red: #8B0000;
+            --deep-red: #A52A2A;
+            --crimson: #DC143C;
+            --light-red: #FF4444;
+            --soft-red: #FF6B6B;
+            --dark-bg: #2c0000;
+        }
+
+        /* Navbar Styles */
+        .navbar {
+            background: linear-gradient(135deg, var(--dark-red) 0%, var(--deep-red) 100%);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            padding: 1rem 0;
+        }
+
+        .navbar-brand {
+            color: white !important;
+            font-weight: 700;
+            font-size: 1.8rem;
+            letter-spacing: 1px;
+        }
+
+        .navbar-brand i {
+            margin-right: 10px;
+            color: var(--soft-red);
+        }
+
+        .nav-link {
+            color: rgba(255,255,255,0.9) !important;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: white !important;
+            transform: translateY(-2px);
+        }
+
+        .dropdown-menu {
+            background: white;
+            border: none;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .dropdown-item:hover {
+            background: var(--light-red);
+            color: white;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            background: linear-gradient(135deg, var(--dark-red) 0%, var(--crimson) 100%);
+            color: white;
+            padding: 120px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="rgba(255,255,255,0.1)" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,122.7C672,117,768,139,864,154.7C960,171,1056,181,1152,165.3C1248,149,1344,107,1392,85.3L1440,64L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>') no-repeat bottom;
+            background-size: cover;
+            opacity: 0.1;
+        }
+
+        .hero-section h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero-section p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+
+        .hero-section .btn-light {
+            background: white;
+            color: var(--dark-red);
+            border: none;
+            padding: 12px 30px;
+            font-weight: 600;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            animation: fadeInUp 1s ease 0.4s both;
+        }
+
+        .hero-section .btn-light:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Search Section */
+        .search-wrapper {
+            background: white;
+            border-radius: 60px;
+            padding: 5px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .search-wrapper input {
+            border: none;
+            padding: 15px 25px;
+            border-radius: 60px;
+            font-size: 1rem;
+        }
+
+        .search-wrapper input:focus {
+            outline: none;
+            box-shadow: none;
+        }
+
+        .search-wrapper button {
+            background: var(--dark-red);
+            border: none;
+            border-radius: 50px;
+            padding: 12px 30px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .search-wrapper button:hover {
+            background: var(--crimson);
+            transform: scale(1.02);
+        }
+
+        /* Section Titles */
+        .section-title {
+            position: relative;
+            margin-bottom: 50px;
+            text-align: center;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--dark-red);
+            display: inline-block;
+            padding-bottom: 15px;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: var(--crimson);
+            border-radius: 2px;
+        }
+
+        /* Book Cards */
+        .book-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            margin-bottom: 30px;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .book-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(139,0,0,0.15);
+        }
+
+        .book-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: var(--crimson);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            z-index: 1;
+        }
+
+        .book-cover {
+            height: 280px;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .book-card:hover .book-cover {
+            transform: scale(1.05);
+        }
+
+        .book-card .card-body {
+            padding: 20px;
+        }
+
+        .book-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--dark-red);
+            margin-bottom: 8px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .book-author {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+
+        .book-price {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--crimson);
+            margin-bottom: 15px;
+        }
+
+        .old-price {
+            font-size: 0.9rem;
+            color: #999;
+            text-decoration: line-through;
+            margin-left: 8px;
+            font-weight: normal;
+        }
+
+        .btn-add-cart {
+            background: linear-gradient(135deg, var(--dark-red), var(--crimson));
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .btn-add-cart:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(139,0,0,0.3);
+        }
+
+        .btn-view {
+            background: transparent;
+            border: 2px solid var(--dark-red);
+            color: var(--dark-red);
+            padding: 8px 15px;
+            border-radius: 25px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .btn-view:hover {
+            background: var(--dark-red);
+            color: white;
+        }
+
+        /* Category Cards */
+        .category-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+
+        .category-card:hover {
+            transform: translateY(-5px);
+            background: linear-gradient(135deg, var(--dark-red), var(--crimson));
+            color: white;
+        }
+
+        .category-card i {
+            font-size: 3rem;
+            color: var(--crimson);
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .category-card:hover i {
+            color: white;
+        }
+
+        .category-card h5 {
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .category-card .btn {
+            border-radius: 25px;
+            padding: 5px 20px;
+        }
+
+        .category-card:hover .btn {
+            background: white;
+            color: var(--dark-red);
+            border: none;
+        }
+
+        /* Cart Badge */
+        .cart-badge {
+            position: absolute;
+            top: -8px;
+            right: -12px;
+            background: var(--crimson);
+            color: white;
+            border-radius: 50%;
+            padding: 2px 8px;
+            font-size: 12px;
+            font-weight: bold;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        /* Footer */
+        .footer {
+            background: linear-gradient(135deg, var(--dark-bg) 0%, var(--dark-red) 100%);
+            color: white;
+            padding: 60px 0 20px;
+            margin-top: 60px;
+        }
+
+        .footer h5 {
+            font-weight: 600;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer h5::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background: var(--soft-red);
+        }
+
+        .footer a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer a:hover {
+            color: white;
+            transform: translateX(5px);
+            display: inline-block;
+        }
+
+        .social-icons a {
+            display: inline-block;
+            width: 35px;
+            height: 35px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            text-align: center;
+            line-height: 35px;
+            margin-right: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            background: var(--crimson);
+            transform: translateY(-3px);
+        }
+
+        /* Loading Spinner */
+        .loading-spinner {
+            text-align: center;
+            padding: 50px;
+        }
+
+        .spinner-border {
+            color: var(--crimson);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-section h1 {
+                font-size: 2rem;
+            }
+
+            .section-title h2 {
+                font-size: 1.8rem;
+            }
+
+            .book-cover {
+                height: 220px;
+            }
+        }
+    </style>
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg fixed-top">
+    <div class="container">
+        <a class="navbar-brand" href="HomePage.html">
+            <i class="fas fa-book-open"></i> BookShop
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                    <a class="nav-link active" href="HomePage.html">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="Search.html">Browse Books</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="categoriesDropdown" role="button"
+                       data-bs-toggle="dropdown">
+                        Categories
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="Search.html?category=Fiction">📚 Fiction</a></li>
+                        <li><a class="dropdown-item" href="Search.html?category=Non-Fiction">📖 Non-Fiction</a></li>
+                        <li><a class="dropdown-item" href="Search.html?category=Science">🔬 Science</a></li>
+                        <li><a class="dropdown-item" href="Search.html?category=Technology">💻 Technology</a></li>
+                        <li><a class="dropdown-item" href="Search.html?category=Business">📊 Business</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="Search.html">
+                        <i class="fas fa-search"></i> Search
+                    </a>
+                </li>
+                <li class="nav-item position-relative">
+                    <a class="nav-link" href="Cart.html">
+                        <i class="fas fa-shopping-cart"></i> Cart
+                        <span class="cart-badge" id="cartCount">0</span>
+                    </a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                       data-bs-toggle="dropdown">
+                        <i class="fas fa-user-circle"></i> Account
+                    </a>
+                    <ul class="dropdown-menu" id="userMenu">
+                        <li><a class="dropdown-item" href="SignIn.html"><i class="fas fa-sign-in-alt"></i> Sign In</a></li>
+                        <li><a class="dropdown-item" href="SignUp.html"><i class="fas fa-user-plus"></i> Sign Up</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Hero Section -->
+<section class="hero-section text-center" style="margin-top: 76px;">
+    <div class="container">
+        <h1>Welcome to BookShop</h1>
+        <p class="lead">Discover your next favorite book from our vast collection of 10,000+ titles</p>
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="search-wrapper">
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="searchInput"
+                               placeholder="Search by title, author, or ISBN...">
+                        <button class="btn btn-primary" onclick="searchBooks()">
+                            <i class="fas fa-search"></i> Search
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Featured Books -->
+<section class="container my-5">
+    <div class="section-title">
+        <h2>Featured Books</h2>
+        <p class="text-muted">Hand-picked just for you</p>
+    </div>
+    <div class="row" id="featuredBooks">
+        <div class="loading-spinner">
+            <div class="spinner-border" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Categories -->
+<section class="container my-5">
+    <div class="section-title">
+        <h2>Shop by Category</h2>
+        <p class="text-muted">Explore books from your favorite genres</p>
+    </div>
+    <div class="row g-4">
+        <div class="col-md-3 col-sm-6">
+            <div class="category-card" onclick="location.href='search.html?category=Fiction'">
+                <i class="fas fa-magic"></i>
+                <h5>Fiction</h5>
+                <p class="small">200+ books</p>
+                <button class="btn btn-outline-primary btn-sm">Explore</button>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-6">
+            <div class="category-card" onclick="location.href='search.html?category=Non-Fiction'">
+                <i class="fas fa-book"></i>
+                <h5>Non-Fiction</h5>
+                <p class="small">150+ books</p>
+                <button class="btn btn-outline-primary btn-sm">Explore</button>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-6">
+            <div class="category-card" onclick="location.href='search.html?category=Science'">
+                <i class="fas fa-flask"></i>
+                <h5>Science</h5>
+                <p class="small">100+ books</p>
+                <button class="btn btn-outline-primary btn-sm">Explore</button>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-6">
+            <div class="category-card" onclick="location.href='search.html?category=Technology'">
+                <i class="fas fa-code"></i>
+                <h5>Technology</h5>
+                <p class="small">180+ books</p>
+                <button class="btn btn-outline-primary btn-sm">Explore</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Newsletter Section -->
+<section class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card bg-danger text-white text-center p-5" style="background: linear-gradient(135deg, var(--dark-red), var(--crimson)); border: none;">
+                <h3 class="mb-3">Subscribe to Our Newsletter</h3>
+                <p>Get exclusive updates on new arrivals, special offers, and more!</p>
+                <div class="input-group">
+                    <input type="email" class="form-control" placeholder="Enter your email address">
+                    <button class="btn btn-light" style="color: var(--dark-red);">Subscribe</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <h5>About BookShop</h5>
+                <p>Your one-stop destination for all types of books. We offer quality books at best prices with fast delivery across Sri Lanka.</p>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            <div class="col-md-2 mb-4">
+                <h5>Quick Links</h5>
+                <ul class="list-unstyled">
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">FAQs</a></li>
+                    <li><a href="#">Blog</a></li>
+                </ul>
+            </div>
+            <div class="col-md-3 mb-4">
+                <h5>Customer Service</h5>
+                <ul class="list-unstyled">
+                    <li><a href="#">Shipping Policy</a></li>
+                    <li><a href="#">Returns & Refunds</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms & Conditions</a></li>
+                </ul>
+            </div>
+            <div class="col-md-3 mb-4">
+                <h5>Contact Info</h5>
+                <ul class="list-unstyled">
+                    <li><i class="fas fa-map-marker-alt"></i> Sri Lanka</li>
+                    <li><i class="fas fa-phone"></i> +94  70 423 6854</li>
+                    <li><i class="fas fa-envelope"></i>DevWithMe.com</li>
+                    <li><i class="fas fa-clock"></i> Mon-Sat: 9AM - 6PM</li>
+                </ul>
+            </div>
+        </div>
+        <hr class="mt-3" style="background: rgba(255,255,255,0.1);">
+        <div class="text-center">
+            <p class="mb-0">&copy; 2026 BookShop. All rights reserved. | Designed with <i class="fas fa-heart" style="color: var(--crimson);"></i> for book lovers</p>
+        </div>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    // Sample book data (in production, this comes from API)
+    const sampleBooks = [
+        { id: 1, title: "The Great Gatsby", author: "F. Scott Fitzgerald", price: 12.99, discountPrice: 9.99, category: "Fiction", coverImage: "https://m.media-amazon.com/images/I/71FTb9X6wsL._AC_UF1000,1000_QL80_.jpg" },
+        { id: 2, title: "To Kill a Mockingbird", author: "Harper Lee", price: 14.99, discountPrice: null, category: "Fiction", coverImage: "https://m.media-amazon.com/images/I/71FxgtFKcQL._AC_UF1000,1000_QL80_.jpg" },
+        { id: 3, title: "1984", author: "George Orwell", price: 11.99, discountPrice: 8.99, category: "Fiction", coverImage: "https://m.media-amazon.com/images/I/71kxa1-0mfL._AC_UF1000,1000_QL80_.jpg" },
+        { id: 4, title: "Pride and Prejudice", author: "Jane Austen", price: 10.99, discountPrice: null, category: "Classic", coverImage: "https://m.media-amazon.com/images/I/71Q1tPupKjL._AC_UF1000,1000_QL80_.jpg" },
+        { id: 5, title: "The Hobbit", author: "J.R.R. Tolkien", price: 15.99, discountPrice: 12.99, category: "Fantasy", coverImage: "https://m.media-amazon.com/images/I/71p1gmC1bWL._AC_UF1000,1000_QL80_.jpg" },
+        { id: 6, title: "Harry Potter", author: "J.K. Rowling", price: 18.99, discountPrice: 14.99, category: "Fantasy", coverImage: "https://m.media-amazon.com/images/I/81YOuOGFCJL._AC_UF1000,1000_QL80_.jpg" },
+        { id: 7, title: "The Alchemist", author: "Paulo Coelho", price: 13.99, discountPrice: null, category: "Fiction", coverImage: "https://m.media-amazon.com/images/I/71aFt4+OTOL._AC_UF1000,1000_QL80_.jpg" },
+        { id: 8, title: "Sapiens", author: "Yuval Noah Harari", price: 19.99, discountPrice: 16.99, category: "Non-Fiction", coverImage: "https://m.media-amazon.com/images/I/713jIoMO3UL._AC_UF1000,1000_QL80_.jpg" }
+    ];
+
+    // Load featured books
+    function loadFeaturedBooks() {
+        const featuredContainer = document.getElementById('featuredBooks');
+
+        setTimeout(() => {
+            featuredContainer.innerHTML = sampleBooks.map(book => `
+                <div class="col-md-3 col-sm-6">
+                    <div class="book-card">
+                        ${book.discountPrice ? '<div class="book-badge">Sale!</div>' : ''}
+                        <img src="${book.coverImage}"
+                             class="card-img-top book-cover" alt="${book.title}"
+                             onerror="this.src='https://via.placeholder.com/200x280?text=Book+Cover'">
+                        <div class="card-body">
+                            <h6 class="book-title">${book.title}</h6>
+                            <p class="book-author">by ${book.author}</p>
+                            <div class="book-price">
+                                $${book.discountPrice || book.price}
+                                ${book.discountPrice ? `<span class="old-price">$${book.price}</span>` : ''}
+                            </div>
+                            <div class="d-flex gap-2">
+                                <button class="btn-add-cart" onclick="addToCart(${book.id})">
+                                    <i class="fas fa-shopping-cart"></i> Add to Cart
+                                </button>
+                                <button class="btn-view" onclick="viewBook(${book.id})">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }, 500);
+    }
+
+    // Search books
+    function searchBooks() {
+        const keyword = document.getElementById('searchInput').value;
+        if (keyword) {
+            window.location.href = `search.html?keyword=${encodeURIComponent(keyword)}`;
+        }
+    }
+
+    // Add to cart function
+    function addToCart(bookId) {
+        const token = localStorage.getItem('authToken');
+        if (!token) {
+            alert('Please login to add items to cart');
+            window.location.href = 'sign-in.html';
+            return;
+        }
+
+        let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+        const existingItem = cart.find(item => item.id === bookId);
+
+        if (existingItem) {
+            existingItem.quantity += 1;
+        } else {
+            const book = sampleBooks.find(b => b.id === bookId);
+            cart.push({ ...book, quantity: 1 });
+        }
+
+        localStorage.setItem('cart', JSON.stringify(cart));
+        alert('Book added to cart successfully!');
+        updateCartCount();
+    }
+
+    function viewBook(bookId) {
+        window.location.href = `single-product.html?id=${bookId}`;
+    }
+
+    // Update cart count
+    function updateCartCount() {
+        const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+        const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+        document.getElementById('cartCount').textContent = totalItems;
+    }
+
+    // Check user login status
+    function checkAuthStatus() {
+        const token = localStorage.getItem('authToken');
+        const userMenu = document.getElementById('userMenu');
+
+        if (token) {
+            userMenu.innerHTML = `
+                <li><a class="dropdown-item" href="my-account.html"><i class="fas fa-user"></i> My Account</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="#" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+            `;
+            updateCartCount();
+        }
+    }
+
+    function logout() {
+        localStorage.removeItem('authToken');
+        localStorage.removeItem('user');
+        window.location.href = 'index.html';
+    }
+
+    // Initialize
+    loadFeaturedBooks();
+    checkAuthStatus();
+
+    // Handle enter key in search
+    document.getElementById('searchInput').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            searchBooks();
+        }
+    });
+</script>
+</body>
+</html>
